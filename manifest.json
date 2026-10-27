@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "fix-pesterchum-online-russian-font",
+  "version": "1.0",
+  "description": "fix font",
+  "content_scripts": [
+    {
+      "matches": ["https://pesterchum.online/"],
+      "css": ["style.css"]
+    }
+  ]
+}
