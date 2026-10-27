@@ -1,2 +1,6 @@
-body{font-family: "Courier New", monospace !important;}
-.tabtext{font-family: "Courier New", monospace !important;}
+@font-face{
+  font-family: "Courierr";
+  src: url("Courierr");
+}
+body{font-family: "Courierr", monospace !important;}
+.tabtext{font-family: "Courierr", monospace !important;}
