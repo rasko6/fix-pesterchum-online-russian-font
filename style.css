@@ -1,1 +1,683 @@
+
+/**
+ *  Pesterchum.online / PesterchumOnlineButSilly, a static pure-JavaScript Pesterchum client.
+ *  Copyright (C) 2023  Shou/Dpeta
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as
+ *  published by the Free Software Foundation, either version 3 of the
+ *  License, or (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+/*To improove*/
+:root{
+  --outside-color:#D59700;
+  --inside-color:#FFB500;
+  --button-and-border-ascent:#FFF700;
+  --unselected-color:#5F5F5F;
+  --black:#000001;
+  --white:#FFFFFF;
+  --button-border-color:#C59400;
+  --border-radius:0rem;
+  scrollbar-color: var(--outside-color) var(--white);
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Courier;
+  font-weight: 1000;
+  font-size: 1rem;
+  color: var(--black);
+  /*text-shadow:0px 0px 2px var(--white);*/
+}
+@font-face {
+    font-family: Strife;
+    src: url(./fonts/strife/strife.woff);
+}
 @font-face{font-family: "Courierr";src: url("Courierr");}html{font-family: "Courierr", monospace !important;}
+.pixelated { 
+  font-family: Strife;
+  font-size: 2rem;
+}
+.couriered{
+  font-family: courier;
+  font-weight: 200;
+}
+
+.border-radius-effect{
+  border-radius: var(--border-radius);
+}
+html{
+  font-size: 18px;
+}
+
+/*Color themes*/
+dialog {
+  margin:auto auto;
+  background-color: var(--inside-color) ;
+  border: 2px solid var(--button-and-border-ascent) ;
+}
+.audio-dialog form{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.audio-dialog form label{
+  font-size: 2rem;
+  font-family: strife;
+}
+
+.dialog-element-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: min(2.5rem, 4vw);
+}
+
+#color-dialog form{
+  margin:1rem 1rem 0.5rem;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap:0.5rem;
+} 
+#color-dialog form button{
+  grid-column: 1/3;
+}
+#color-dialog form label{
+  margin:auto 0;
+  font-family: strife;
+  font-size: 1.5rem;
+}
+
+.modal-full-width{
+  grid-column:1/3;
+}
+
+input{
+  touch-action: none;
+}
+input[type=range]{
+  accent-color:var(--button-and-border-ascent);
+}
+
+dialog::backdrop{
+  background-color: var(--unselected-color) ;
+  opacity: 0.5;
+}
+
+/*Background styles*/
+
+h3{
+  display: flex;
+  align-items: center;
+  margin:0.5rem 0 1rem
+}
+
+.background-wrapper{
+margin-block-start: 1rem;
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap:0.2rem;
+  justify-content: center;
+  width:min(600px,80vw);
+}
+.menu-button {
+  margin-inline-start: 1rem;
+  font-size: 1rem;
+  padding:0.3rem;
+}
+
+#background-image-wrapper {
+  position: fixed;
+  z-index: -1;
+  margin:auto auto;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+}
+
+.background-image{
+  height:100vh ;
+}
+
+.background-button{
+  background-color: var(--outside-color);
+  padding:0;
+  height: 100px;
+}
+.background-button img{
+  width: 9.5rem;
+}
+
+/*General styles*/
+body {
+  width: 100vw;
+  background: var(--outside-color);
+}
+
+main {
+  overflow-x: hidden;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 3vh;
+}
+
+.title{
+  display:grid;
+  grid-template-columns:1fr 2fr 1fr ;
+  grid-template-rows: auto auto;
+  width: 100%;
+  margin-block: 1rem;
+}
+
+.title > p{
+  font-size: max(5.5vw,3rem);
+  font-family: Strife;
+  text-align: center;
+  color:var(--black);
+}
+
+.title > *:nth-child(2){
+  height: max(3vw,2rem);
+}
+
+.title > *:nth-child(3){
+  font-size: max(7vw,5.2rem);
+  height: max(5vw,);
+}
+
+.title > img{
+  width:6vw;
+  margin:auto;
+}
+
+.title > img:first-child{
+  grid-row:1/3 ;
+  grid-column: 1/2;
+}
+.title > img:last-child{
+  grid-row:1/3 ;
+  grid-column: 3/4;
+}
+
+.centertxt {
+  text-align: center;
+}
+.entry {  
+  width: min(30rem,100%);
+  margin: auto;
+}
+.centered {
+  width: 50%;
+  background-color: var(--inside-color); 
+  background-repeat: no-repeat; 
+  border:2px solid var(--button-and-border-ascent); 
+  font-family: 'Courier'; 
+  padding: 0.5rem 3vw;
+}
+.centered > p{
+  text-align: center;
+  font-size: 1.5rem;
+}
+.centered > p > a{
+  font-size: 1.5rem;
+}
+.dark-input{
+  font-family: Strife;
+  font-size: 2rem;
+  background: var(--black);
+  border-color: var(--button-and-border-ascent);
+  border-style: solid;
+  width: 100%;
+  color: var(--white);
+  transform: translateY(-10%);
+  padding:0.2rem 1rem;
+}
+input[type=checkbox]{
+  background-color: var(--black);
+  transform: scale(1.5) translateY(-2px);
+}
+
+.centeredGoAdvanced {
+  display:flex;
+  flex-direction:column;  
+  background-color: var(--inside-color);
+  background-repeat: no-repeat;
+  /*border:2px solid var(--button-and-border-ascent);*/
+  font-family: 'Courier';
+  font-weight: bold;
+  padding: 0.5rem;
+
+  margin: auto;
+  width: 100%;
+}
+
+#notice {
+  text-align: right;
+}
+.userlistButton {
+  background: transparent;
+  border: none;
+  background-color: black;
+  color: var(--white);
+  font-family: 'strife';
+  width: inherit;
+  background-color: var(--black);
+  white-space: nowrap;
+  font-size: 1.4rem;
+}
+
+.theme-wrapper{
+  display: flex;
+  align-items: center;
+  gap:1rem;
+  flex-wrap: wrap;
+}
+
+.theme-button{
+  height: 3rem;
+  text-align: center;
+  text-justify: center;
+  padding:0
+}
+
+#theme-custom{
+  display: none;
+}
+button{
+  cursor: pointer;
+  background-color:var(--button-and-border-ascent);
+  border: 3px solid var(--button-border-color);
+  padding: 0.2rem 1rem;
+  font-family: Strife;
+  font-size: 2rem;
+}
+
+button:hover{
+  background-color: var(--outside-color);
+  color: var(--white)
+}
+
+/*Client*/
+
+.tab {
+    border:0px;
+    height: 5%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding-bottom: 0.5%;
+}
+
+.tablinks {
+  background-color: var(--unselected-color);
+  font-family: 'strife';
+  font-size: 1.2rem;
+  height: 80%;
+  vertical-align: top;
+}
+
+.tablinks:hover {
+  color: var(--white);
+}
+
+.tab-arrow-container{
+  position:absolute;
+  left: 2.1rem;
+  background-color: var(--inside-color);
+}
+
+.tab-arrow {
+  background-color: var(--inside-color);
+  font-family: 'strife';
+  font-size: 1.2rem;
+  height: 80%;
+  vertical-align: top;
+  border-color:var(--button-and-border-ascent);
+  border-top-right-radius:0.5rem ;
+  border-top-left-radius:0.5rem ;
+  border-width: 1px;
+}
+
+.tab-arrow:hover {
+  color: var(--white);
+}
+
+
+.tablinks.active {
+  background-color:var(--inside-color);
+  border-top:2px solid var(--button-and-border-ascent);
+  border-left:2px solid var(--button-and-border-ascent);
+  border-right:2px solid var(--button-and-border-ascent); 
+  border-top-left-radius: 4px; 
+  border-top-right-radius: 4px;
+  padding-right: 20px;
+  padding-block-end: 0.4rem ;
+}
+.userlistChum:hover {
+    background-color: var(--unselected-color);
+}
+
+.MemosChumsTabs {
+  /* For USERLIST / MEMOS */
+  background-color: var(--unselected-color);
+  font-family: 'strife';
+  font-size:1.3rem;
+  height: 2rem;
+  width: 50%;
+  float: left;
+  position: relative;
+  bottom: 1px;
+  border-bottom: none;
+  padding-block-end: 1.2rem;
+}
+
+.MemosChumsTabs.active {
+  /* For USERLIST / MEMOS */
+  border:0px;
+  background-color:var(--inside-color);
+  border-top:2px solid var(--button-and-border-ascent);
+  border-left:2px solid var(--button-and-border-ascent);
+  border-right:2px solid var(--button-and-border-ascent); 
+  border-top-left-radius: 4px; 
+  border-top-right-radius: 4px;
+}
+
+.textarea {
+  background-color: var(--white); 
+}
+
+.textarea.inactive {
+  background-color: var(--unselected-color);
+}
+
+.memoUserlist.inactive {
+    background-color: lightgrey;
+}
+
+.msg {
+  background-color: var(--white); 
+}
+
+.msg.inactive {
+  background-color: var(--unselected-color); 
+}
+
+.tabtext{
+  width: 100%
+}
+
+.userstatus {
+  position: relative;
+  top: 4px;
+  left: 1.5%;
+}
+#manualJoinInput {
+font-family: strife;
+color: var(--white);
+background: var(--black);
+margin-inline-start: 0.5rem;
+width: 95%;
+}
+
+.manualJoin {
+  font-family:strife;
+  width: 100%;
+  height: 5rem;
+  color: var(--white);
+  padding: 1%;
+  overflow: auto;
+display: flex;
+flex-direction: column;
+justify-content: end;
+}
+.manualJoin > div{
+  color:var(--white);
+  font-family:strife;
+  font-size: 2rem;
+  padding-inline-start: 0.5rem;
+}
+
+.memoChum {
+  white-space: nowrap;
+  position: relative;
+  font-family: strife;
+  font-size: 1.2rem;
+  left: 1.5%;
+  color:var(--white)
+}
+.memoChumContainer {
+  margin: 1%;
+}
+.memoChumContainer:hover {
+  color: var(--white);
+  background-color: var(--unselected-color);
+}
+
+.hidebutton {
+  height: 10%;
+  background: var(--white);
+  font-weight: bold;
+  font-size: 24px;
+  font-family: 'Courier'; 
+  position: relative;
+  max-width: 5vw;
+  display:none;
+}
+
+#connectButton:hover {
+  background-color:var(--inside-color);
+}
+
+#connectButtonDiv {
+  text-align: center;
+  padding-top: 2%;
+}
+
+#bloodcaste {
+  border: none;
+  padding: 0 !important;
+}
+
+#hideChumroll {
+  float: right;
+  top: 45%;
+}
+
+#hideMemoUsers {
+  float: left;
+  top: 42.25%;
+  left: 0.85%;
+}
+
+#chumroll {
+  color: var(--white);
+  font-weight: bold;
+  font-family: 'Courier';
+  overflow-x: scroll;
+  overflow-y: scroll;
+  height: calc(100% - 7rem); /* -4%*/
+  font-size: 20px;
+  width: 100%;
+}
+
+#chumrollContainer {
+  border: 2px solid var(--inside-color);
+  background-color: var(--black);
+  float: right;
+  margin-right: 0.5%;
+  margin-left: 0.5%;
+  margin-top: 0.5%;
+  width:27%;
+  order:3;
+  height: 85.2vh;
+  margin-block-end: 0.5rem;
+}
+
+#memoUserlist {
+  border:4px solid var(--button-and-border-ascent); 
+  /*margin-right: 10px;*/
+  margin-block-start: 1.7rem;
+  margin-left: 1%;
+  overflow-x: auto;
+  height: 83.2vh;
+  width: 15%; 
+  float: left;
+  background-color: var(--black);
+}
+#msg {
+  font-size: 0.9rem;
+  padding-inline-start: 0.5rem;
+  touch-action: none;
+  color: var(--black); 
+  border:2px solid var(--button-and-border-ascent);
+  margin-top:0.25%; 
+  margin-left:0.5%; 
+  margin-bottom:0.5%;
+  width: 100%; 
+  height: 3vh;
+  float: left;
+  max-width: 93vw;
+}
+
+.mainContainer {
+  margin-block-start: 0.5rem;
+  margin-inline-start: 0.5rem;
+}
+
+#textarea { 
+  padding: 0.3rem;
+  font-size: 18px;
+  font-weight: bold; 
+  border:2px solid var(--button-and-border-ascent);
+  margin-left:0.5%;
+  font-family: 'Courier';
+  overflow-x: visible;
+  overflow-wrap: break-word;
+  overflow-y: auto;
+  height: 80vh; 
+  /*max-width: 80vw;*/
+  width: 100%; 
+  float: left;
+  margin-block-start: -0.8rem;
+  position: relative;
+  z-index: 1;
+}
+#maintab{
+  display: flex;
+  margin-inline-start: 1.5rem;
+  width: 97%;
+  padding-inline-start: 10rem;
+  height: 2.35rem;
+}
+#tabContainer {
+  width: 56%;
+  margin-block-start: -0.4rem;
+}
+
+#textAndInputBox {
+  float: left;
+  width: 100%;
+  /*max-width: 57vw;
+  min-width: 500px;*/
+}
+
+#chonkers {
+  position: relative;
+  background-color: var(--inside-color); 
+  background-repeat: no-repeat; 
+  border:2px solid var(--button-and-border-ascent); 
+  font-family: 'Courier'; 
+  font-weight: bold; 
+  width: 80vw;
+  display: flex;
+  flex-wrap: wrap;
+justify-content: center;
+padding:0.5rem
+  /*overflow: auto;*/
+}
+
+/*this is a trial*/
+/*
+::-webkit-scrollbar {
+    padding-top: 1%; 
+    padding-bottom: 1%;
+    width: 1.1%;     
+    background-color: var(--white); 
+    border:2px solid #c48a00;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color:#c48a00;
+  /*min-height: 1.2%;    
+}
+
+::-webkit-scrollbar-button {
+  height: 1.2%;
+  border:0px solid #c48a00;
+}
+*/
+@media (max-width:910px) {
+  .title > img {
+    width: 65%;
+  }
+  .centered >p {
+    font-size: 1.2rem;
+  }
+  .centered , .centeredGo {
+    width: 90vw;
+  }
+}
+@media (max-width:510px) {
+  .title > img {
+    width: 0;
+  }
+}  
+@media (max-width: 1910px) {
+  #chumrollContainer{
+    width: 100%;
+  }
+  #tabContainer{
+    width:70%;
+  }
+  #memoUserlist{
+    width: 29%;
+  }
+}
+@media (max-width: 1130px) {
+  #chonkers{
+    width:90vw;
+  }
+}
+
+@media (max-width: 980px) {
+  #memoUserlist{
+    width:97%;
+  }
+  .memoChum{
+    font-size:1.8rem;
+  }
+  #tabContainer{
+    width:100%;
+  }
+}
+
+.downloader {
+
+}
