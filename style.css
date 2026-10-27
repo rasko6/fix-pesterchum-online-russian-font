@@ -1,6 +1,1 @@
-@font-face{
-  font-family: "Courierr";
-  src: url("Courierr");
-}
-body{font-family: "Courierr", monospace !important;}
-.tabtext{font-family: "Courierr", monospace !important;}
+@font-face{font-family: "Courierr";src: url("Courierr");}html{font-family: "Courierr", monospace !important;}
